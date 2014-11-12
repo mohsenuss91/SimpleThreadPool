@@ -58,7 +58,7 @@ public class SimpleThreadPool
 //		this(name, 0, 20);
 //	}
 
-	public SimpleThreadPool(String name, int minsize, int maxsize)
+	private SimpleThreadPool(String name, int minsize, int maxsize)
 	{
 		this.name = "PThread";
 		this.minsize = minsize;
