@@ -6,61 +6,31 @@ import java.util.LinkedList;
  * This is a simple implementation of thread pool<br/>
  * referenced from <a href="http://blog.csdn.net/ruanruoshi/article/details/657133">csdn blog</a><br/>
  * 
- * @author zmj110@gmail.com
- * 2014-11-11
+ * @author zmj110@gmail.com 2014-11-11
  */
 public class SimpleThreadPool
 {
 	static final long			IDLE_TIMEOUT	= 60000L;
-
-	private static SimpleThreadPool	threadPool;
 
 	private String				name;
 	private int					minsize;
 	private int					maxsize;
 	private int					nextWorkerId	= 0;
 	private LinkedList<Worker>	pool			= new LinkedList<Worker>();
-	
-	public static SimpleThreadPool getInstance()
+
+	public SimpleThreadPool()
 	{
-		return SimpleThreadPool.getInstance("PThread", 0, 20);
-	}
-	
-	public static SimpleThreadPool getInstance(String name)
-	{
-		return SimpleThreadPool.getInstance(name, 0, 20);
-	}
-	
-	public static SimpleThreadPool getInstance(String name, int minsize, int maxsize)
-	{
-		if (threadPool == null)
-		{
-			doSync(name, minsize, maxsize);
-		}
-		return threadPool;
+		this("PThread");
 	}
 
-	private static synchronized void doSync(String name, int minsize, int maxsize)
+	public SimpleThreadPool(String name)
 	{
-		if (threadPool == null)
-		{
-			threadPool = new SimpleThreadPool(name, minsize, maxsize);
-		}
+		this(name, 0, 20);
 	}
 
-//	private ThreadPool()
-//	{
-//		this("PThread");
-//	}
-//
-//	private ThreadPool(String name)
-//	{
-//		this(name, 0, 20);
-//	}
-
-	private SimpleThreadPool(String name, int minsize, int maxsize)
+	public SimpleThreadPool(String name, int minsize, int maxsize)
 	{
-		this.name = "PThread";
+		this.name = name;
 		this.minsize = minsize;
 		this.maxsize = maxsize;
 	}
